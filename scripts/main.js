@@ -138,7 +138,7 @@ Hooks.once("init", () => {
   const sound = (file) => `modules/${MODULE_ID}/sounds/${file}`;
   const defaultSounds = {
     crit: sound("crit.m4a"),
-    fumble: sound("fumble.ogg"),
+    fumble: sound("fumble.m4a"),
     levelup: sound("level-up-fanfare.m4a"),
     down: sound("down.m4a"),
     up: sound("up.m4a"),

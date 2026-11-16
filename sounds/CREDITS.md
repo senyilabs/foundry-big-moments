@@ -4,7 +4,7 @@ All CC0 (public domain dedication), from OpenGameArt.
 
 - `crit.m4a` (natural 20): "Impact" by qubodup, file `qubodupImpactMetal.flac`, converted to AAC.
   https://opengameart.org/content/impact
-- `fumble.ogg` (natural 1): "Game Over Trumpet SFX" by 0new4y, file `losetrumpet_0.ogg`, unchanged.
+- `fumble.m4a` (natural 1): "Game Over Trumpet SFX" by 0new4y, file `losetrumpet.wav`, converted to AAC.
   https://opengameart.org/comment/106657
 - `level-up-fanfare.m4a` (level-up): "Victory Fanfare Short" by cynicmusic, file `Heavy_ConceptB.wav`, converted to AAC.
   https://opengameart.org/content/victory-fanfare-short
