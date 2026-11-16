@@ -1,0 +1,25 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Big Moments preview</title>
+<link rel="stylesheet" href="../styles/big-moments.css">
+<style>body { margin: 0; min-height: 100vh; background: #3b4a3a; font-family: Signika, "Helvetica Neue", sans-serif; }</style>
+<!-- Serve the module folder (python3 -m http.server) and open /dev/preview.html?kind=crit (crit, fumble, levelup, down, up).
+     Add &hold to freeze the splash at its peak for screenshots. Labels come from lang/en.json. -->
+<script type="module">
+  import { showSplash } from "../scripts/splash.js";
+  const params = new URLSearchParams(location.search);
+  const kind = params.get("kind") ?? "crit";
+  const labels = await (await fetch("../lang/en.json")).json();
+  const fill = (s) => (s ?? "").replaceAll("{name}", "Kessa Thornwood").replaceAll("{level}", "5");
+  showSplash({
+    kind,
+    title: fill(labels[`BIGMOMENTS.${kind}.Title`]),
+    subtitle: kind === "levelup" ? fill(labels["BIGMOMENTS.levelup.Subtitle"]) : "Kessa Thornwood · Longsword",
+    img: "",
+  }, { duration: params.has("hold") ? 600000 : 2800 });
+  if (params.has("hold")) {
+    // Freeze every animation a third of the way in, where the splash is fully on screen.
+    setTimeout(() => document.getAnimations().forEach((a) => { a.pause(); a.currentTime = 600000 * 0.3; }), 50);
+  }
+</script>

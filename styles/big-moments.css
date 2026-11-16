@@ -1,0 +1,103 @@
+.big-moment {
+  --bm-accent: #f2c14e;
+  --bm-band: rgba(20, 16, 26, 0.92);
+  --bm-ink: #fff8e8;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  pointer-events: none;
+  color: var(--bm-ink);
+}
+.big-moment.bm-crit { --bm-accent: #f2c14e; }
+.big-moment.bm-fumble { --bm-accent: #9a8fb0; --bm-band: rgba(22, 20, 30, 0.94); }
+.big-moment.bm-levelup { --bm-accent: #53d6c4; }
+.big-moment.bm-down { --bm-accent: #e8483f; --bm-band: rgba(30, 8, 10, 0.94); }
+.big-moment.bm-up { --bm-accent: #7fe08a; }
+
+.big-moment .bm-flash {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, color-mix(in srgb, var(--bm-accent) 45%, transparent), transparent 60%);
+  animation: bm-flash var(--bm-duration) ease-out both;
+}
+.big-moment.bm-down .bm-flash {
+  background: radial-gradient(circle, transparent 35%, rgba(120, 0, 0, 0.55) 100%);
+}
+
+.big-moment .bm-band {
+  position: relative;
+  justify-self: start;
+  width: 140vw;
+  margin-left: -20vw;
+  padding: 26px 0;
+  background: var(--bm-band);
+  border-block: 3px solid var(--bm-accent);
+  box-shadow: 0 0 60px color-mix(in srgb, var(--bm-accent) 55%, transparent);
+  transform: rotate(-4deg);
+  animation: bm-band var(--bm-duration) cubic-bezier(0.2, 0.9, 0.2, 1) both;
+}
+
+/* The band is wider than the screen so its ends stay hidden while tilted; the content stays on screen. */
+.big-moment .bm-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  width: min(1100px, calc(100vw - 48px));
+  margin: 0 auto;
+}
+
+.big-moment .bm-portrait {
+  width: 120px;
+  height: 120px;
+  flex: none;
+  overflow: hidden;
+  border: 3px solid var(--bm-accent);
+  border-radius: 50%;
+  background: #120f16;
+  transform: rotate(4deg);
+  animation: bm-pop var(--bm-duration) cubic-bezier(0.2, 1.5, 0.4, 1) both;
+}
+.big-moment .bm-portrait img { width: 100%; height: 100%; object-fit: cover; border: 0; }
+.big-moment.bm-down .bm-portrait img { filter: grayscale(1) brightness(0.7); }
+
+.big-moment .bm-text { min-width: 0; transform: rotate(4deg); text-align: left; }
+.big-moment .bm-title {
+  font-size: clamp(36px, 6vw, 72px);
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--bm-accent);
+  text-shadow: 0 0 30px color-mix(in srgb, var(--bm-accent) 60%, transparent), 0 4px 0 rgba(0, 0, 0, 0.6);
+  animation: bm-title var(--bm-duration) cubic-bezier(0.2, 1.4, 0.4, 1) both;
+}
+.big-moment.bm-fumble .bm-title { animation-name: bm-title, bm-wobble; animation-duration: var(--bm-duration), 0.5s; animation-delay: 0s, 0.4s; }
+.big-moment .bm-sub { margin-top: 8px; font-size: 24px; font-weight: 600; letter-spacing: 0.04em; opacity: 0.92; }
+
+/* Each keyframe list is laid out over the whole splash: arrive fast, hold, leave fast. */
+@keyframes bm-flash { 0% { opacity: 0; } 8% { opacity: 1; } 30% { opacity: 0.5; } 85% { opacity: 0.4; } 100% { opacity: 0; } }
+@keyframes bm-band {
+  0% { opacity: 0; transform: rotate(-4deg) translateX(-60vw) scaleY(0.4); }
+  12% { opacity: 1; transform: rotate(-4deg) translateX(0) scaleY(1); }
+  86% { opacity: 1; transform: rotate(-4deg) translateX(1vw); }
+  100% { opacity: 0; transform: rotate(-4deg) translateX(40vw) scaleY(0.6); }
+}
+@keyframes bm-pop { 0%, 8% { transform: rotate(4deg) scale(0); } 20% { transform: rotate(4deg) scale(1); } }
+@keyframes bm-title { 0%, 10% { opacity: 0; transform: scale(1.8); } 22% { opacity: 1; transform: scale(1); } }
+@keyframes bm-wobble { 0%, 100% { translate: 0; } 25% { translate: -8px 0; } 50% { translate: 8px 0; } 75% { translate: -4px 0; } }
+
+@media (max-width: 900px) {
+  .big-moment .bm-title { font-size: 42px; }
+  .big-moment .bm-sub { font-size: 18px; }
+  .big-moment .bm-portrait { width: 80px; height: 80px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .big-moment .bm-band, .big-moment .bm-portrait, .big-moment .bm-title, .big-moment .bm-flash { animation: none !important; }
+}
