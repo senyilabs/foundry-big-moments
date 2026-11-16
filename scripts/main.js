@@ -135,8 +135,11 @@ Hooks.once("init", () => {
     name: "BIGMOMENTS.Settings.Duration.Name", hint: "BIGMOMENTS.Settings.Duration.Hint",
     type: Number, default: 2.8, range: { min: 1, max: 8, step: 0.2 },
   });
+  const defaultSounds = { levelup: `modules/${MODULE_ID}/sounds/level-up-fanfare.m4a` };
   for (const kind of KINDS) {
-    world(`sound.${kind}`, { name: `BIGMOMENTS.${kind}.Sound`, type: String, default: "", filePicker: "audio" });
+    world(`sound.${kind}`, {
+      name: `BIGMOMENTS.${kind}.Sound`, type: String, default: defaultSounds[kind] ?? "", filePicker: "audio",
+    });
   }
 });
 
