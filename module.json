@@ -1,8 +1,8 @@
 {
   "id": "big-moments",
   "title": "Big Moments",
-  "description": "Turn the dramatic beats of a D&D 5e session into cinematic splash screens, with natural 20s, natural 1s, level-ups, characters falling to 0 HP and getting back up, each with its own optional sound.",
-  "version": "0.1.0",
+  "description": "Turn the dramatic beats of a D&D 5e or Pathfinder 2e session into cinematic splash screens, with natural 20s, natural 1s, level-ups, characters falling to 0 HP and getting back up, each with its own optional sound.",
+  "version": "0.2.0",
   "authors": [{ "name": "Senyi Labs", "url": "https://senyilabs.com" }],
   "compatibility": { "minimum": "13", "verified": "14" },
   "relationships": {
@@ -15,5 +15,5 @@
   "bugs": "https://github.com/senyilabs/foundry-big-moments/issues",
   "license": "LICENSE",
   "manifest": "https://github.com/senyilabs/foundry-big-moments/releases/latest/download/module.json",
-  "download": "https://github.com/senyilabs/foundry-big-moments/releases/download/v0.1.0/module.zip"
+  "download": "https://github.com/senyilabs/foundry-big-moments/releases/download/v0.2.0/module.zip"
 }
