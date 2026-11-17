@@ -6,7 +6,7 @@
   "authors": [{ "name": "Senyi Labs", "url": "https://senyilabs.com" }],
   "compatibility": { "minimum": "13", "verified": "14" },
   "relationships": {
-    "systems": [{ "id": "dnd5e", "type": "system", "compatibility": { "minimum": "5.0.0" } }]
+    "systems": [{ "id": "dnd5e", "type": "system", "compatibility": { "minimum": "5.0.0" } }, { "id": "pf2e", "type": "system", "compatibility": { "minimum": "7.0.0" } }]
   },
   "esmodules": ["scripts/main.js"],
   "styles": ["styles/big-moments.css"],

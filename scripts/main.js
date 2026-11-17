@@ -43,9 +43,26 @@ function readRoll(message) {
   if (!d20) return null;
   const actor = message.getAssociatedActor?.() ?? ChatMessage.getSpeakerActor(message.speaker);
   if (!actor) return null;
-  // dnd5e's D20Roll knows the critical range (a Champion crits on 19); plain rolls fall back to the die.
   const die = d20.dice.find((d) => d.faces === 20);
   const kept = die?.results?.find((r) => r.active)?.result;
+
+  // pf2e: a critical is a degree of success (beating the DC by 10 also counts), known once the roll
+  // had a DC. Without one, fall back to the natural 20 or 1.
+  const pf2e = message.flags?.pf2e?.context;
+  if (pf2e) {
+    const outcome = pf2e.outcome;
+    return {
+      actor,
+      roll: {
+        type: PF2E_TYPES[pf2e.type] ?? pf2e.type ?? "",
+        byPlayer: actor.hasPlayerOwner,
+        isCritical: outcome ? outcome === "criticalSuccess" : kept === 20,
+        isFumble: outcome ? outcome === "criticalFailure" : kept === 1,
+      },
+    };
+  }
+
+  // dnd5e's D20Roll knows the critical range (a Champion crits on 19); plain rolls fall back to the die.
   return {
     actor,
     roll: {
@@ -56,6 +73,9 @@ function readRoll(message) {
     },
   };
 }
+
+// pf2e roll types, in dnd5e's terms where rollMoment cares.
+const PF2E_TYPES = { "attack-roll": "attack", "spell-attack-roll": "attack", "damage-roll": "damage" };
 
 // With Dice So Nice the result should not be spoiled before the 3D dice stop rolling.
 function afterDice(message, fn) {
@@ -84,7 +104,8 @@ function onMessage(message) {
 /* -------------------------------------------- */
 
 const hpOf = (actor) => Number(actor.system?.attributes?.hp?.value);
-const levelOf = (actor) => Number(actor.system?.details?.level);
+// dnd5e keeps the level as a number, pf2e as { value }.
+const levelOf = (actor) => Number(actor.system?.details?.level?.value ?? actor.system?.details?.level);
 const isHero = (actor) => actor?.hasPlayerOwner && actor.type === "character";
 
 function remember(actor) {
