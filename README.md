@@ -1,7 +1,5 @@
 # Big Moments
 
-A module for Foundry Virtual Tabletop (v13–14) and the D&D 5e system.
-
 ## Install
 
 In Foundry: **Add-on Modules → Install Module**, search for Big Moments, or paste this manifest URL:
